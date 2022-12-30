@@ -3,22 +3,20 @@ import { connectToDb } from '../../../db'
 
 export default function useHandler(req: NextApiRequest, res: NextApiResponse){
     connectToDb()
+    const {couponId}= req.query
+    res.status(200).json({coupon: couponId,message:"GET by id"})
     const {
-        query: { id, name },
+        query: { id },
         method,
       } = req
 
       switch (method) {
         case 'GET':
           // Get data from your database
-          res.status(200).json({ id, name: `coupon ${id}` })
-          break
-        case 'PUT':
-          // Update or create data in your database
-          res.status(200).json({ id, name: name || `coupon ${id}` })
+          res.status(200).json({ id: `${id}` })
           break
         default:
-          res.setHeader('Allow', ['GET', 'PUT'])
+          res.setHeader('Allow', ['GET'])
           res.status(405).end(`Method ${method} Not Allowed`)
       }
     }

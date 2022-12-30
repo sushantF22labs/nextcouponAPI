@@ -75,4 +75,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       res.status(400).send({ data: "check entered data once again" });
     }
   }
+  
 }
